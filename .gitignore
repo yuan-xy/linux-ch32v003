@@ -1,4 +1,5 @@
 .vscode/
+.vscode*
 
 hardware/*-backups
 hardware/*.kicad_prl

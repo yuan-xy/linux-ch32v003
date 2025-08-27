@@ -1,20 +1,21 @@
 all : flash
 
-TARGET:=femto-rv32ima
+TARGET:=linux-ch32v003
 
-ADDITIONAL_C_FILES:= psram/psram.c psram/cache32x2x16.c emulator/emulator.c pff/pff.c pff/mmcbbp.c hw_spi/hw_spi.c
-EXTRA_CFLAGS:= -Iemulator -Ipsram -Ihw_spi
+ADDITIONAL_C_FILES:= hw_spi/hw_spi.c tiny-rv32ima/pff/pff.c tiny-rv32ima/pff/mmcbbp.c tiny-rv32ima/psram/psram.c tiny-rv32ima/cache/cache.c tiny-rv32ima/emulator/emulator.c
+EXTRA_CFLAGS:= -Ihw_spi -Ihal -Itiny-rv32ima
 
-CH32V003FUN:=../ch32v003fun/ch32v003fun
-MINICHLINK?=$(CH32V003FUN)/../minichlink
+CH32FUN:=ch32fun/ch32fun
+TARGET_MCU?=CH32V003
 
-include $(CH32V003FUN)/ch32v003fun.mk
+MINICHLINK?=$(CH32FUN)/../minichlink
+
+include $(CH32FUN)/ch32fun.mk
 
 flash : cv_flash
 clean : cv_clean
 
 linux : 
 	make -C linux
-
 
 .PHONY: linux
